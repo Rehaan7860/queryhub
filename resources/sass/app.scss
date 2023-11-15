@@ -6,3 +6,25 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+strong {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.status {
+    &.unanswered {
+        border: none;
+    }
+
+    &.answered {
+        border: 1px solid $color-green;
+        color: $color-green;
+    }
+
+    &.answer-accepted {
+        background-color: $color-green;
+        color: $color-white;
+    }
+}
