@@ -13,6 +13,8 @@
                         </div>
 
                     <div class="card-body">
+                        @include('layouts._messages')
+
                         @foreach($questions as $question)
                             <div class="media row">
                                 <div class="col-1 counters">
@@ -21,7 +23,7 @@
                                     </div>
 
                                     <div class="status {{ $question->status }} text-center mb-2">
-                                        <strong class="fw-bold">{{ $question->answers }}</strong> {{ Str::title(Str::plural('answer', $question->answers)) }}
+                                        <strong class="fw-bold">{{ $question->answers }} </strong> {{ Str::title(Str::plural('answer', $question->answers)) }}
                                     </div>
                                     <div class="view text-center">
                                         {{ $question->views }} {{ Str::title(Str::plural('view', $question->views)) }}
@@ -39,6 +41,7 @@
                                         <small class="text-muted ms-2">{{ $question->created_date }}</small>
                                     </p>
                                     {{ $question->body }}
+
                                 </div>
                             </div>
                             <hr>
