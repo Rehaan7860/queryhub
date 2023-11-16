@@ -32,7 +32,7 @@
                                 <div class="media-body col">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h3 class="mt-0">
-                                            <a href="{{$question->url}}" class="text-decoration-none">
+                                            <a href="{{ $question->url }}" class="text-decoration-none">
                                                 {{ $question->title }}
                                             </a>
                                         </h3>

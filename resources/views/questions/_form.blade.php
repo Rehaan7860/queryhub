@@ -14,7 +14,7 @@
 <div class="form-group mt-3">
     <label for="question-body" class="form-label">Your Question</label>
     <textarea name="body" id="question-body" cols="30" rows="10" class="form-control {{ $errors->has('body') ? 'is-invalid' : '' }}">
-                                    {{old('body', $question->body)}}
+                                    {{ old('body', $question->body) }}
                                 </textarea>
 
     @if($errors->has('body'))
