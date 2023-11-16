@@ -7,14 +7,15 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex align-items-center justify-content-between">
-                            <h4 class="fw-bolder my-auto">Ask Question</h4>
+                            <h4 class="fw-bolder my-auto">Edit Question</h4>
                             <a href="{{ route('questions.index') }}" class="btn btn-outline-secondary">Back to all questions</a>
                         </div>
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('questions.store') }}" method="POST">
-                           @include('questions._form', ['buttonText' => 'Submit Question'])
+                        <form action="{{ route('questions.update', $question->id) }}" method="POST">
+                            {{ method_field('PUT') }}
+                            @include('questions._form', ['buttonText' => 'Update Question'])
                         </form>
                     </div>
                 </div>
