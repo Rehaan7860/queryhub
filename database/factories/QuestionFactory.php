@@ -20,7 +20,7 @@ class QuestionFactory extends Factory
             'title' => rtrim($this->faker->sentence(5,10), "."),
             'body' => $this->faker->paragraph(rand(3,7), true),
             'views' => $this->faker->numberBetween(0, 10),
-            'answers_count' => $this->faker->numberBetween(0, 10),
+//            'answers_count' => $this->faker->numberBetween(0, 10),
             'votes' => $this->faker->numberBetween(-3, 10),
         ];
     }
