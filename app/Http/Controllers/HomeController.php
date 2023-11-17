@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Question $question)
     {
-        return view('home');
+
+
+        $questions = Question::with('user')->latest()->paginate(10);
+
+        return view('questions/index', compact('questions'));
+
+
     }
 }

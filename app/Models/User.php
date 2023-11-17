@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 class   User extends Authenticatable
@@ -50,5 +51,14 @@ class   User extends Authenticatable
     public function getUrlAttribute() {
 //        return route("questions.show", $this->id);
         return '#';
+    }
+
+    public function answers() {
+        return $this->hasMany(Answer::class);
+    }
+
+    public function getBodyHtmlAttribute() {
+
+        return Str::markdown($this->body);
     }
 }

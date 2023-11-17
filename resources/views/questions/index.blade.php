@@ -23,7 +23,7 @@
                                     </div>
 
                                     <div class="status {{ $question->status }} text-center mb-2">
-                                        <strong class="fw-bold">{{ $question->answers }} </strong> {{ Str::title(Str::plural('answer', $question->answers)) }}
+                                        <strong class="fw-bold">{{ $question->answers_count }} </strong> {{ Str::title(Str::plural('answer', $question->answers_count)) }}
                                     </div>
                                     <div class="view text-center">
                                         {{ $question->views }} {{ Str::title(Str::plural('view', $question->views)) }}
@@ -38,11 +38,11 @@
                                         </h3>
                                         <div class="ml-auto d-flex gap-2">
 
-                                            @if(Auth::user()->can('update-question', $question))
+                                            @if( Auth::check() && Auth::user()->can('update-question', $question))
                                             <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
                                             @endif
 
-                                                @if(Auth::user()->can('delete-question', $question))
+                                                @if( Auth::check() && Auth::user()->can('delete-question', $question))
                                             <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
