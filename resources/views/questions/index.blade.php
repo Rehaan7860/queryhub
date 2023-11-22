@@ -8,7 +8,11 @@
                     <div class="card-header">
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="fw-bolder my-auto">All Questions</h4>
-                            <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask a Question</a>
+                            @if(Auth::check())
+                                <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask a Question</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-outline-secondary">Sign in to ask a Question</a>
+                            @endif
                         </div>
                         </div>
 
@@ -36,17 +40,22 @@
                                                 {{ $question->title }}
                                             </a>
                                         </h3>
-                                        <div class="ml-auto d-flex gap-2">
+                                        <div class="ml-auto d-flex align-items-center gap-2">
 
                                             @if( Auth::check() && Auth::user()->can('update-question', $question))
-                                            <a href="{{ route('questions.edit', $question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                            <a href="{{ route('questions.edit', $question->id) }}" class="border-0 bg-transparent">
+                                                <i class="fas fa-pencil-alt fa-lg text-primary"></i>
+                                            </a>
                                             @endif
 
                                                 @if( Auth::check() && Auth::user()->can('delete-question', $question))
                                             <form action="{{ route('questions.destroy', $question->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this question?')">Delete</button>
+                                                <button type="submit" class="border-0 bg-transparent" onclick="return confirm('Are you sure you want to delete this question?')">
+                                                    <i class="fas fa-trash fa-lg text-danger"></i>
+                                                </button>
+
                                             </form>
                                                 @endif
                                         </div>
