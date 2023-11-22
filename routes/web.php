@@ -22,6 +22,14 @@ Route::redirect('/', '/questions');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('/questions', QuestionsController::class)->except('show');
+
+
+// Answers Routes
 Route::post('/questions/{question}/answers', [AnswersController::class, 'store'])->name('answers.store');
+Route::get('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'edit'])->name('answers.edit');
+Route::delete('/questions/{question}/answers/{answer}/delete', [AnswersController::class, 'destroy'])->name('answers.destroy');
+Route::patch('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'update'])->name('answers.update');
+
+// Question Routes
+Route::resource('/questions', QuestionsController::class)->except('show');
 Route::get('/questions/{question:slug}', [QuestionsController::class, 'show'])->name('questions.show');
