@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcceptAnswerController;
 use App\Http\Controllers\AnswersController;
 use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,8 @@ Route::post('/questions/{question}/answers', [AnswersController::class, 'store']
 Route::get('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'edit'])->name('answers.edit');
 Route::delete('/questions/{question}/answers/{answer}', [AnswersController::class, 'destroy'])->name('answers.destroy');
 Route::patch('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'update'])->name('answers.update');
+
+Route::post('/answers/{answer}/accept', AcceptAnswerController::class)->name('answers.accept');
 
 // Question Routes
 Route::resource('/questions', QuestionsController::class)->except('show');
