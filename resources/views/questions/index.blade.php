@@ -23,7 +23,7 @@
                             <div class="media row">
                                 <div class="col-1 counters">
                                     <div class="vote text-center mb-2">
-                                       <strong class="fw-bold"> {{ $question->votes }}</strong> {{ Str::title(Str::plural('vote', $question->votes)) }}
+                                       <strong class="fw-bold"> {{ $question->votes_count }}</strong> {{ Str::title(Str::plural('vote', $question->votes_count)) }}
                                     </div>
 
                                     <div class="status {{ $question->status }} text-center mb-2">
