@@ -13,26 +13,30 @@
                         <div class="row w-auto">
                             <div class="col-md-auto ms-0">
                                 <div class="d-flex flex-column w-auto align-items-center vote-controls">
-                                    <a href="" title="This answer is useful" class="vote-up">
+                                    <a href="" title="This answer is useful"
+                                       class="vote-up {{ Auth::guest() ? 'off' : '' }}"
+                                       onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit();"
+                                    >
                                         <i class="fas fa-caret-up fa-3x text-black"></i>
                                     </a>
-                                    <span class="votes-count">1230</span>
-                                    <a href="" title="This answer is not useful" class="vote-down off">
+
+                                    <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display: none">
+                                        @csrf
+                                        <input type="hidden" name="vote" value="1">
+                                    </form>
+                                    <span class="votes-count">{{ $answer->votes_count }}</span>
+                                    <a href="" title="This answer is not useful"
+                                       class="vote-down {{ Auth::guest() ? 'off' : '' }}"
+                                       onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit();"
+                                    >
                                         <i class="fas fa-caret-down fa-3x"></i>
                                     </a>
 
-                                    @can('accept', $answer)
-                                    <a href="" title="Mark this answer as best answer"
-                                       class="{{ $answer->status }} text-decoration-none mt-3"
-                                    onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit();"
-                                    >
-                                        <i class="fas fa-check fa-2x"></i>
-                                    </a>
-                                    <form id="accept-answer-{{ $answer->id }}" action="{{ route('answers.accept', $answer->id) }}" method="POST" style="display: none">
+                                    <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $question->id }}/vote" method="POST" style="display: none">
                                         @csrf
+                                        <input type="hidden" name="vote" value="-1">
                                     </form>
 
-                                    @else
                                         @if($answer->is_best)
                                             <a href="" title="User who asked this question has accepted this answer as the best answer"
                                                class="{{ $answer->status }} text-decoration-none mt-3"
@@ -40,7 +44,6 @@
                                                 <i class="fas fa-check fa-2x"></i>
                                             </a>
                                         @endif
-                                    @endcan
                                 </div>
                             </div>
                             <div class="media-body col-md mt-2">
