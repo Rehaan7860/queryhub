@@ -12,39 +12,10 @@
                     <div class="media">
                         <div class="row w-auto">
                             <div class="col-md-auto ms-0">
-                                <div class="d-flex flex-column w-auto align-items-center vote-controls">
-                                    <a href="" title="This answer is useful"
-                                       class="vote-up {{ Auth::guest() ? 'off' : '' }}"
-                                       onclick="event.preventDefault(); document.getElementById('up-vote-answer-{{ $answer->id }}').submit();"
-                                    >
-                                        <i class="fas fa-caret-up fa-3x text-black"></i>
-                                    </a>
+                               @include('shared._vote', [
+                                'model' => $answer
+                            ])
 
-                                    <form id="up-vote-answer-{{ $answer->id }}" action="/answers/{{ $answer->id }}/vote" method="POST" style="display: none">
-                                        @csrf
-                                        <input type="hidden" name="vote" value="1">
-                                    </form>
-                                    <span class="votes-count">{{ $answer->votes_count }}</span>
-                                    <a href="" title="This answer is not useful"
-                                       class="vote-down {{ Auth::guest() ? 'off' : '' }}"
-                                       onclick="event.preventDefault(); document.getElementById('down-vote-answer-{{ $answer->id }}').submit();"
-                                    >
-                                        <i class="fas fa-caret-down fa-3x"></i>
-                                    </a>
-
-                                    <form id="down-vote-answer-{{ $answer->id }}" action="/answers/{{ $question->id }}/vote" method="POST" style="display: none">
-                                        @csrf
-                                        <input type="hidden" name="vote" value="-1">
-                                    </form>
-
-                                        @if($answer->is_best)
-                                            <a href="" title="User who asked this question has accepted this answer as the best answer"
-                                               class="{{ $answer->status }} text-decoration-none mt-3"
-                                            >
-                                                <i class="fas fa-check fa-2x"></i>
-                                            </a>
-                                        @endif
-                                </div>
                             </div>
                             <div class="media-body col-md mt-2">
                                 {{ $answer->body }}
@@ -73,18 +44,10 @@
                                 </div>
 
                                     <div class="mt-3">
-                                    <span class="text-muted">
-                                        Answered {{ $answer->created_date }}
-                                    </span>
-                                        <div class="media d-flex justify-content-end mt-3 align-items-center">
-                                            <a href="{{ $answer->user->url }}" class="pe-2">
-                                                <img src="{{ $answer->user->avatar }}" alt="">
-                                            </a>
-                                            <div class="media-body">
-                                                <a href="{{ $answer->user->url }}"> {{ $answer->user->name }}</a>
-                                            </div>
-                                        </div>
-
+                                    @include('shared._author', [
+                                        'model' => $answer,
+                                        'label' => 'Answered'
+])
                                     </div>
                             </div>
                         </div>
