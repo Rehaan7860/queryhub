@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::redirect('/', '/questions');
+Route::get('/', [QuestionsController::class, 'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
