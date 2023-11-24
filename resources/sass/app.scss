@@ -65,3 +65,11 @@ strong {
         }
     }
 }
+
+.post {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba($black, .1);
+    &:last-child {
+        border: none;
+    }
+}
