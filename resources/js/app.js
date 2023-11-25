@@ -7,6 +7,7 @@
 import './bootstrap';
 import { createApp } from 'vue';
 import './fontawesome.js';
+import UserInfo from "./components/UserInfo.vue";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -16,8 +17,7 @@ import './fontawesome.js';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+app.component('user-info', UserInfo);
 
 /**
  * The following block of code may be used to automatically register your
