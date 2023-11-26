@@ -27,10 +27,13 @@
                                {{ $question->body }}
                            </div>
                                <div class="text-end">
+                                   <div class="d-none">
                                    @include('shared._author', [
                                         'model' => $question,
                                         'label' => 'Asked'
                                 ])
+                                   </div>
+                                   <user-info :model="{{ $question }}" label="Asked"></user-info>
                                </div>
                            </div>
 

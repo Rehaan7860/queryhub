@@ -7,6 +7,11 @@
         "serve": "vite preview"
     },
     "devDependencies": {
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-import-resolver-webpack": "^0.13.2",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-jsdoc": "^43.1.1",
         "@popperjs/core": "^2.11.6",
         "@vitejs/plugin-vue": "^4.0.0",
         "axios": "^1.1.2",
@@ -26,4 +31,3 @@
         "@fortawesome/fontawesome-free-solid": "^5.0.13"
     }
 }
-

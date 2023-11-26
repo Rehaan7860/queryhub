@@ -33,10 +33,13 @@
             </div>
 
             <div class="mt-3">
+                <div class="d-none">
                 @include('shared._author', [
                     'model' => $answer,
                     'label' => 'Answered'
 ])
+                </div>
+                <user-info :model="{{ $answer }}" label="Answered"></user-info>
             </div>
         </div>
     </div>
