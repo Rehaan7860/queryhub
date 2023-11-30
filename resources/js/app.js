@@ -4,10 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import './bootstrap';
-import { createApp } from 'vue';
-import './fontawesome.js';
-import UserInfo from "./components/UserInfo.vue";
+import './bootstrap'
+import { createApp } from 'vue'
+import './fontawesome.js'
+import UserInfo from './components/UserInfo.vue'
+import Answer from './components/Answer.vue'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -15,9 +16,10 @@ import UserInfo from "./components/UserInfo.vue";
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+const app = createApp({})
 
-app.component('user-info', UserInfo);
+app.component('user-info', UserInfo)
+app.component('answer', Answer)
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,4 +39,4 @@ app.component('user-info', UserInfo);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
-app.mount('#app');
+app.mount('#app')

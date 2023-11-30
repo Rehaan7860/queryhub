@@ -32,9 +32,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/questions/{question}/answers', [AnswersController::class, 'store'])->name('answers.store');
 Route::get('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'edit'])->name('answers.edit');
 Route::delete('/questions/{question}/answers/{answer}', [AnswersController::class, 'destroy'])->name('answers.destroy');
-Route::patch('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'update'])->name('answers.update');
+Route::patch('/questions/{question}/answers/{answer}', [AnswersController::class, 'update'])->name('answers.update');
 Route::post('/answers/{answer}/accept', AcceptAnswerController::class)->name('answers.accept');
 Route::post('/answers/{answer}/vote', VoteAnswerController::class);
+
+
 
 
 // Question Routes
