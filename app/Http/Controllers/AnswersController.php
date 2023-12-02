@@ -6,6 +6,7 @@ use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AnswersController extends Controller
 {
@@ -30,7 +31,9 @@ class AnswersController extends Controller
      */
     public function edit(Question $question, Answer $answer)
     {
-        $this->authorize('update', $answer);
+        if (Gate::denies('update-answer', $answer)) {
+            abort(403, "Access denied");
+        }
 
         return view('answers.edit', compact('question', 'answer'));
     }
@@ -40,7 +43,10 @@ class AnswersController extends Controller
      */
     public function update(Request $request, Question $question, Answer $answer)
     {
-        $this->authorize('update', $answer);
+
+        if (Gate::denies('update-answer', $answer)) {
+            abort(403, "Access denied");
+        }
 
         $answer->update($request->validate([
             'body' => 'required'
@@ -61,9 +67,17 @@ class AnswersController extends Controller
      */
     public function destroy(Question $question, Answer $answer)
     {
-        $this->authorize('delete', $answer);
+        if (Gate::denies('delete-answer', $answer)) {
+            abort(403, "Access denied");
+        }
 
         $answer->delete();
+
+        if(request()->expectsJson()) {
+            return response()->json([
+                'message' => 'Your answer has been successfully removed.'
+            ]);
+        }
 
         return back()->with('success', 'Your answer has been successfully removed.');
     }

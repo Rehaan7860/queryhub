@@ -1,0 +1,294 @@
+// Fade
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0 !important;
+}
+
+// Slide Fade
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all 0.2s ease-in-out;
+    transform: translateX(0);
+}
+
+.slide-fade-enter-from {
+    opacity: 0 !important;
+    transform: translateX(15%);
+}
+
+.slide-fade-leave-to {
+    opacity: 0 !important;
+    transform: translateX(-15%);
+}
+
+// Slide Fade
+.dialog-slide-enter-active {
+    transition: all 0.2s ease-out;
+    transform: translateX(0);
+}
+
+.dialog-slide-leave-active {
+    transition: all 0.2s ease-in;
+    transform: translateX(0);
+}
+
+.dialog-slide-enter-from {
+    opacity: 0 !important;
+    transform: translateX(3%);
+}
+
+.dialog-slide-leave-to {
+    opacity: 0 !important;
+    transform: translateX(-3%);
+}
+
+// Fade Down
+.fadedown-enter-active,
+.fadedown-leave-active {
+    transform: translateY(0);
+    backface-visibility: hidden;
+    opacity: 1;
+    transition: transform 0.3s, opacity 0.15s;
+}
+
+.fadedown-enter-active {
+    transition-timing-function: ease-out;
+}
+
+.fadedown-leave-active {
+    transition-timing-function: ease-in;
+}
+
+.fadedown-enter-from,
+.fadedown-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    transform: translateY(-4rem);
+    opacity: 0;
+    backface-visibility: hidden;
+}
+
+// Search Panel
+.search-enter-active,
+.search-leave-active {
+    transform: scale(1);
+    transform-origin: top center;
+    backface-visibility: hidden;
+    opacity: 1;
+    transition: transform 0.2s, opacity 0.15s;
+}
+
+.search-enter-active {
+    transition-timing-function: ease-out;
+}
+
+.search-leave-active {
+    transition-timing-function: ease-in;
+}
+
+.search-enter-from,
+.search-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    transform: scale(0.9);
+    transform-origin: top center;
+    opacity: 0;
+    backface-visibility: hidden;
+}
+
+.removal-item {
+    width: 33%;
+    display: inline-block;
+    height: 150px;
+    overflow: hidden;
+    transition: all 400ms ease-in-out;
+}
+
+.removal-enter,
+.removal-leave-to
+    /* .list-complete-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    z-index: 0;
+    transform: scale(0.8);
+}
+
+.file-list-single-leave-active,
+.removal-leave-active {
+    position: absolute;
+}
+
+.file-list-single-move,
+.file-list-move,
+.file-list-single-enter-active,
+.file-list-enter-active,
+.file-list-single-leave-active,
+.file-list-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.file-list-single-enter-from,
+.file-list-enter-from {
+    opacity: 0;
+    transform: translateX(-50%);
+}
+
+.file-list-single-leave-to,
+.file-list-leave-to {
+    opacity: 0;
+    transform: translateX(50%);
+}
+
+.file-list-leave-active {
+    // position: absolute;
+}
+
+.file-list-single-leave-active {
+    position: absolute;
+}
+
+.quick-enter-active,
+.quick-leave-active {
+    transition: opacity 0.5s ease-out;
+}
+
+.quick-enter-from,
+.quick-leave-to {
+    opacity: 0;
+}
+
+// Fade
+.zoom-out-enter-active,
+.zoom-out-leave-active {
+    transform-origin: center;
+    transition: all 1.5s ease-in-out;
+}
+
+.zoom-out-enter-from,
+.zoom-out-leave-to {
+    transform-origin: center;
+    transform: translateY(5%) scale(1.05) !important;
+    opacity: 0 !important;
+}
+
+// Slide Fade
+.sso-card-enter-active {
+    transition: all 0.3s ease-out;
+    transform: translateX(0) scale(1);
+}
+
+.sso-card-leave-active {
+    transition: all 0.3s ease-in;
+    transform: translateX(0) scale(1);
+}
+
+.sso-card-enter-from {
+    opacity: 0 !important;
+    transform: translateX(15%) scale(0.95);
+}
+
+.sso-card-leave-to {
+    opacity: 0 !important;
+    transform: translateX(-15%) scale(0.95);
+}
+
+.activity-list-move,
+.activity-list-enter-active,
+.activity-list-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.message__content .message__item {
+    transition: all 0.3s ease-in-out;
+}
+
+.activity-list-enter-from {
+    opacity: 0;
+    transform: translateY(100%) scale(0.8);
+    transform-origin: bottom left;
+}
+
+.activity-list-leave-to {
+    opacity: 0;
+    transform-origin: center;
+
+    // transform: scale(0.8);
+}
+
+.activity-list-leave-active {
+    position: absolute;
+}
+
+.message-list-move,
+.message-list-enter-active,
+.message-list-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.message-list-enter-from {
+    opacity: 0;
+}
+
+.message-list-leave-to {
+    opacity: 0;
+}
+
+.day-list {
+    &-move,
+    &-enter-active,
+    &-leave-active {
+        transition: all 0.3s ease-in-out;
+    }
+
+    &--enter-from {
+        opacity: 0;
+    }
+
+    &-leave-to {
+        opacity: 0;
+    }
+
+    &-leave-active {
+        position: absolute;
+    }
+}
+
+// Card shuffle - transition group
+.card-shuffle-move,
+.card-shuffle-enter-active,
+.card-shuffle-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.card-shuffle-enter-from,
+.card-shuffle-leave-to {
+    opacity: 0;
+    z-index: -1;
+}
+
+.card-shuffle-leave-active {
+    position: absolute;
+}
+
+// Hud Slide In
+.left-hud {
+    &-enter-active {
+        transition: all 0.2s ease-in-out;
+        transform: translateX(0);
+    }
+
+    &-leave-active {
+        transition: all 0.2s ease-in-out;
+        transform: translateX(0);
+    }
+
+    &-enter-from {
+        opacity: 0 !important;
+        transform: translateX(-30%);
+    }
+
+    &-leave-to {
+        opacity: 0 !important;
+        transform: translateX(-30%);
+    }
+}

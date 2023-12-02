@@ -32,26 +32,34 @@
         </div>
 
         <div v-if="!editing" class="answer_row">
-            <div class="row">
-                <div class="col-md-auto">
-                    <slot name="vote-controls"></slot>
+            <transition name="fadedown">
+                <div class="row">
+                    <div class="col-md-auto">
+                        <slot name="vote-controls"></slot>
+                    </div>
+                    <div class="col-md-11 mt-2">
+                        <div>{{ answer.body }}</div>
+                    </div>
                 </div>
-                <div class="col-md-11 mt-2">
-                    <div>{{ answer.body }}</div>
-                </div>
-            </div>
+            </transition>
             <div
                 class="mt-3 row d-flex justify-content-between align-items-center text-end"
             >
                 <div class="col-md">
                     <div class="d-flex align-items-center gap-2 mt-5">
                         <a
+                            v-if="authEdit"
                             @click.prevent="edit"
                             class="border-0 bg-transparent"
                         >
                             <i class="fas fa-pencil-alt fa-lg text-primary"></i>
                         </a>
-                        <button type="submit" class="border-0 bg-transparent">
+
+                        <button
+                            v-if="authDelete"
+                            @click="destroy"
+                            class="border-0 bg-transparent"
+                        >
                             <i class="fas fa-trash fa-lg text-danger"></i>
                         </button>
                     </div>
@@ -70,7 +78,9 @@ import { computed, ref, toRefs, watch, watchEffect } from 'vue'
 import UserInfo from './UserInfo.vue'
 
 const props = defineProps({
-    answer: { type: Object, default: () => {} }
+    answer: { type: Object, default: () => {} },
+    authEdit: null,
+    authDelete: null
 })
 
 const { answer } = toRefs(props)
@@ -82,20 +92,30 @@ const questionId = ref(answer.value.question_id)
 const beforeEditCache = ref(null)
 
 const isInvalid = computed(() => body.value.length < 10)
+const endpoint = computed(() => ` ${questionId.value}/answers/${id.value}`)
 const update = () => {
     axios
-        .patch(` ${questionId.value}/answers/${id.value}`, {
+        .patch(endpoint.value, {
             body: body.value
         })
         .then((res) => {
             body.value = res.data.body
             editing.value = false
             // alert(res.data.message)
-            location.reload()
+            window.location.reload()
         })
         .catch((err) => {
             console.log('Something went wrong')
         })
+}
+
+const destroy = () => {
+    if (confirm('Are you sure')) {
+        axios.delete(endpoint.value).then((res) => {
+            alert(res.data.message)
+            window.location.reload()
+        })
+    }
 }
 
 const edit = () => {

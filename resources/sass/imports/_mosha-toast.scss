@@ -1,0 +1,53 @@
+.mosha__toast {
+    padding: $spacer;
+    border-radius: $border-radius;
+    z-index: $zindex-modal;
+    box-shadow: var(--dark-shadow-elevation-high);
+
+    &.success {
+        background-color: $success;
+    }
+
+    &.danger {
+        background-color: $danger;
+    }
+
+    &__close-icon {
+        margin-left: $spacer * 2;
+
+        &::before {
+            color: $white;
+            top: unset;
+            font-size: 2rem;
+        }
+
+        &:hover {
+            &::before {
+                color: $white;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &__content {
+        font-family: var(--bs-body-font-family);
+        line-height: $line-height-base;
+
+        &__text {
+            font-size: $h5-font-size;
+            font-weight: $font-weight-bolder;
+            line-height: $headings-line-height;
+        }
+
+        &__description {
+            font-size: $small-font-size;
+            font-weight: $font-weight-base;
+            line-height: $line-height-sm;
+        }
+    }
+
+    &__progress {
+        left: 0;
+        height: 4px;
+    }
+}
