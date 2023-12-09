@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Gate;
 class AnswersController extends Controller
 {
 
+    public function index() {
+        $answers = Answer::all();
+
+        return response()->json($answers);
+    }
+
     /**
      * Store a newly created resource in storage.
      */

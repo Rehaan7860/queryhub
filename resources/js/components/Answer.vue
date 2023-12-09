@@ -1,5 +1,19 @@
 <template>
     <div class="media post">
+        <Modal
+            button-text="Confirm"
+            @close="toggleModal"
+            :modal-active="modalActive"
+            modal-title="Delete Answer"
+            @submit-button="destroy"
+        >
+            <div>
+                <p>
+                    Are you sure you want to delete this answer? This change is
+                    permanent.
+                </p>
+            </div>
+        </Modal>
         <div class="row w-auto">
             <div class="media-body">
                 <form v-if="editing" @submit.prevent="update">
@@ -8,7 +22,7 @@
                             rows="10"
                             class="form-control"
                             required
-                            v-model="body"
+                            v-model="state.answer.body"
                         ></textarea>
                     </div>
                     <div class="mt-3 d-flex justify-content-end gap-2">
@@ -38,7 +52,7 @@
                         <slot name="vote-controls"></slot>
                     </div>
                     <div class="col-md-11 mt-2">
-                        <div>{{ answer.body }}</div>
+                        <div>{{ state.answer.body }}</div>
                     </div>
                 </div>
             </transition>
@@ -57,7 +71,7 @@
 
                         <button
                             v-if="authDelete"
-                            @click="destroy"
+                            @click="toggleModal"
                             class="border-0 bg-transparent"
                         >
                             <i class="fas fa-trash fa-lg text-danger"></i>
@@ -74,57 +88,140 @@
 </template>
 
 <script setup>
-import { computed, ref, toRefs, watch, watchEffect } from 'vue'
-import UserInfo from './UserInfo.vue'
+import {
+    computed,
+    defineProps,
+    onMounted,
+    reactive,
+    ref,
+    toRefs,
+    defineEmits
+} from 'vue'
+import { createToast } from 'mosha-vue-toastify'
+import 'mosha-vue-toastify/dist/style.css'
+import Modal from '../components/global/Modal.vue'
+import { useModal } from '../composables/useModal.js'
+
+const { openModal, closeModal, isModalOpen } = useModal()
 
 const props = defineProps({
-    answer: { type: Object, default: () => {} },
+    answer: { type: Object, default: () => ({}) },
     authEdit: null,
     authDelete: null
 })
 
 const { answer } = toRefs(props)
 
-const editing = ref(false)
-const body = ref(answer.value.body)
-const id = ref(answer.value.id)
-const questionId = ref(answer.value.question_id)
-const beforeEditCache = ref(null)
+const emit = defineEmits(['handleAnswerDeleted'])
 
-const isInvalid = computed(() => body.value.length < 10)
-const endpoint = computed(() => ` ${questionId.value}/answers/${id.value}`)
-const update = () => {
-    axios
-        .patch(endpoint.value, {
-            body: body.value
-        })
-        .then((res) => {
-            body.value = res.data.body
-            editing.value = false
-            // alert(res.data.message)
-            window.location.reload()
-        })
-        .catch((err) => {
-            console.log('Something went wrong')
-        })
+const editing = ref(false)
+const modalComponentRef = ref(null)
+
+const modalActive = ref(false)
+
+const toggleModal = () => {
+    modalActive.value = !modalActive.value
 }
 
-const destroy = () => {
-    if (confirm('Are you sure')) {
-        axios.delete(endpoint.value).then((res) => {
-            alert(res.data.message)
-            window.location.reload()
+onMounted(() => {
+    // console.log('modalComponentRef:', modalComponentRef)
+    console.log('modalComponentRefValue:', modalComponentRef.value)
+})
+
+const state = reactive({
+    answer: { ...props.answer } || { body: '' },
+    beforeEditCache: null
+})
+
+const isInvalid = computed(() => {
+    return state.answer && state.answer.body && state.answer.body.length < 10
+})
+
+const endpoint = computed(() => {
+    return `${
+        state.answer && state.answer.question_id ? state.answer.question_id : ''
+    }/answers/${state.answer && state.answer.id ? state.answer.id : ''}`
+})
+
+const fetchAnswers = async () => {
+    try {
+        answer.value = await axios.get('/answers')
+        console.log(answer.value)
+    } catch (err) {
+        console.log(err)
+    }
+}
+const update = async () => {
+    try {
+        const response = await axios.patch(endpoint.value, {
+            body: state.answer.body
         })
+
+        // Update only the body property
+        state.answer.body = response.data.body
+
+        editing.value = false
+
+        createToast(
+            {
+                title: 'Answer Updated',
+                description: response.data.message
+            },
+            {
+                type: 'success',
+                timeout: 5000,
+                position: 'bottom-center'
+            }
+        )
+    } catch (err) {
+        console.log('error updating data', err)
     }
 }
 
+// Come back to this to fix reactivity issue on deletion!
+const destroy = async () => {
+    await axios
+        .delete(endpoint.value)
+        .then(() => {
+            createToast(
+                {
+                    title: 'Answer Deleted',
+                    description: 'The answer has been deleted successfully.'
+                },
+                {
+                    type: 'success',
+                    timeout: 5000,
+                    position: 'bottom-center'
+                }
+            )
+            toggleModal()
+        })
+        .catch((err) => {
+            createToast(
+                {
+                    title: 'Error',
+                    description: 'The answer cannot be deleted.'
+                },
+                {
+                    type: 'success',
+                    timeout: 5000,
+                    position: 'bottom-center'
+                }
+            )
+            toggleModal()
+        })
+        .finally(() => {
+            fetchAnswers()
+        })
+}
+
 const edit = () => {
-    beforeEditCache.value = body.value
+    state.beforeEditCache = { ...state.answer }
     editing.value = true
 }
 
 const cancel = () => {
-    body.value = beforeEditCache.value
+    state.answer = { ...state.beforeEditCache }
     editing.value = false
 }
 </script>

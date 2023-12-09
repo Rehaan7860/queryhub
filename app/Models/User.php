@@ -68,8 +68,9 @@ class   User extends Authenticatable
 
         $email = $this->email;
         $size = 32;
+        $default = "mp";
 
-        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size . "&r=pg&d=robohash";
     }
 
     public function favorites() {

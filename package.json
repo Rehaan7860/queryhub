@@ -29,6 +29,7 @@
     "dependencies": {
         "@fortawesome/fontawesome": "^1.1.8",
         "@fortawesome/fontawesome-free-solid": "^5.0.13",
+        "lodash-es": "^4.17.21",
         "mosha-vue-toastify": "^1.0.23"
     }
 }

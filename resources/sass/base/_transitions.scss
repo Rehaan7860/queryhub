@@ -292,3 +292,24 @@
         transform: translateX(-30%);
     }
 }
+
+.modal-animation-enter-active,
+.modal-animation-leave-active, {
+    transition: transform 0.4s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s linear;
+}
+
+.modal-animation-enter-from,
+.modal-animation-leave-from{
+    opacity: 0;
+}
+
+.pop-enter-active,
+.pop-leave-active {
+    transition: transform 0.4s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s linear;
+}
+
+.pop-enter,
+.pop-leave-to {
+    opacity: 0;
+    transform: scale(0.3) translateY(-50%);
+}

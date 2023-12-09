@@ -21,6 +21,11 @@ const app = createApp({})
 app.component('user-info', UserInfo)
 app.component('answer', Answer)
 
+const handleAnswerDeleted = (deletedAnswerId) => {
+    // Update the UI or perform other actions
+    console.log('Answer deleted:', deletedAnswerId)
+}
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
