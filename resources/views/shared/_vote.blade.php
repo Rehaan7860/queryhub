@@ -41,9 +41,7 @@
     </form>
 
   @if($model instanceof App\Models\Question)
-      @include ('shared._favorite', [
-    'model' => $model
-])
+        <favorite :question="{{ json_encode($model) }}"></favorite>
     @elseif($model instanceof App\Models\Answer)
         @include ('shared._accept', [
         'model' => $model
