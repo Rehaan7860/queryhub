@@ -10,6 +10,7 @@ import './fontawesome.js'
 import UserInfo from './components/UserInfo.vue'
 import Answer from './components/Answer.vue'
 import Favorite from './components/Favorite.vue'
+import Accept from './components/Accept.vue'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -22,6 +23,7 @@ const app = createApp({})
 app.component('user-info', UserInfo)
 app.component('answer', Answer)
 app.component('favorite', Favorite)
+app.component('accept', Accept)
 
 // const handleAnswerDeleted = (deletedAnswerId) => {
 //     // Update the UI or perform other actions
