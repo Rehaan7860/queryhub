@@ -125,7 +125,7 @@ const toggleModal = () => {
 
 onMounted(() => {
     // console.log('modalComponentRef:', modalComponentRef)
-    console.log('modalComponentRefValue:', modalComponentRef.value)
+    // console.log('modalComponentRefValue:', modalComponentRef.value)
 })
 
 const state = reactive({

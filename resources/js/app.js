@@ -11,7 +11,6 @@ import UserInfo from './components/UserInfo.vue'
 import Answer from './components/Answer.vue'
 import Favorite from './components/Favorite.vue'
 import Accept from './components/Accept.vue'
-
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -24,11 +23,6 @@ app.component('user-info', UserInfo)
 app.component('answer', Answer)
 app.component('favorite', Favorite)
 app.component('accept', Accept)
-
-// const handleAnswerDeleted = (deletedAnswerId) => {
-//     // Update the UI or perform other actions
-//     console.log('Answer deleted:', deletedAnswerId)
-// }
 
 /**
  * The following block of code may be used to automatically register your
