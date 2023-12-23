@@ -5,10 +5,7 @@
 >
 
         <template #vote-controls>
-            @include('shared._vote', [
-             'model' => $answer
-         ])
-
+         <vote :model="{{ $answer }}" :name="'answer'"></vote>
         </template>
 
     <template #author>

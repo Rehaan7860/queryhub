@@ -11,6 +11,7 @@ import UserInfo from './components/UserInfo.vue'
 import Answer from './components/Answer.vue'
 import Favorite from './components/Favorite.vue'
 import Accept from './components/Accept.vue'
+import Vote from './components/Vote.vue'
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -21,8 +22,7 @@ const app = createApp({})
 
 app.component('user-info', UserInfo)
 app.component('answer', Answer)
-app.component('favorite', Favorite)
-app.component('accept', Accept)
+app.component('vote', Vote)
 
 /**
  * The following block of code may be used to automatically register your

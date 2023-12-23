@@ -48,6 +48,6 @@ Route::resource('/questions', QuestionsController::class)->except('show');
 Route::get('/questions/{question:slug}', [QuestionsController::class, 'show'])->name('questions.show');
 Route::post('/questions/{question}/favorites', [FavoriteController::class, 'store'])->name('questions.favorite');
 Route::delete('/questions/{question}/favorites', [FavoriteController::class, 'destroy'])->name('questions.unfavorite');
-Route::post('/question/{question}/vote', VoteQuestionController::class);
+Route::post('/questions/{question}/vote', VoteQuestionController::class);
 
 

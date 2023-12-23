@@ -18,9 +18,7 @@
                        <div class="media">
                            <div class="row w-auto">
                            <div class="col-md-auto ms-0">
-                               @include('shared._vote', [
-                                    'model' => $question
-])
+                              <vote :model="{{ $question }}" :name="'question'"></vote>
                            </div>
 
                            <div class="media-body text-wrap col-md mt-2">
