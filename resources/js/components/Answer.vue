@@ -45,8 +45,8 @@
             </div>
         </div>
 
-        <div v-if="!editing" class="answer_row">
-            <transition name="fadedown">
+        <transition-group name="insert" mode="out-in">
+            <div v-if="!editing" class="answer_row">
                 <div class="row">
                     <div class="col-md-auto">
                         <vote :model="answer" :name="'answer'"></vote>
@@ -55,35 +55,38 @@
                         <div>{{ state.answer.body }}</div>
                     </div>
                 </div>
-            </transition>
-            <div
-                class="mt-3 row d-flex justify-content-between align-items-center text-end"
-            >
-                <div class="col-md">
-                    <div class="d-flex align-items-center gap-2 mt-5">
-                        <a
-                            v-if="authorize('modify', answer)"
-                            @click.prevent="edit"
-                            class="border-0 bg-transparent"
-                        >
-                            <i class="fas fa-pencil-alt fa-lg text-primary"></i>
-                        </a>
 
-                        <button
-                            v-if="authorize('modify', answer)"
-                            @click="toggleModal"
-                            class="border-0 bg-transparent"
-                        >
-                            <i class="fas fa-trash fa-lg text-danger"></i>
-                        </button>
+                <div
+                    class="mt-3 row d-flex justify-content-between align-items-center text-end"
+                >
+                    <div class="col-md">
+                        <div class="d-flex align-items-center gap-2 mt-5">
+                            <a
+                                v-if="authorize('modify', answer)"
+                                @click.prevent="edit"
+                                class="border-0 bg-transparent"
+                            >
+                                <i
+                                    class="fas fa-pencil-alt fa-lg text-primary"
+                                ></i>
+                            </a>
+
+                            <button
+                                v-if="authorize('modify', answer)"
+                                @click="toggleModal"
+                                class="border-0 bg-transparent"
+                            >
+                                <i class="fas fa-trash fa-lg text-danger"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md">
+                        <slot name="author"></slot>
                     </div>
                 </div>
-
-                <div class="col-md">
-                    <slot name="author"></slot>
-                </div>
             </div>
-        </div>
+        </transition-group>
     </div>
 </template>
 
@@ -112,7 +115,7 @@ const props = defineProps({
 
 const { answer } = toRefs(props)
 
-const emit = defineEmits(['handleAnswerDeleted'])
+const emit = defineEmits(['deleted'])
 
 const editing = ref(false)
 const modalComponentRef = ref(null)
@@ -193,6 +196,7 @@ const destroy = async () => {
     await axios
         .delete(endpoint.value)
         .then(() => {
+            emit('deleted')
             createToast(
                 {
                     title: 'Answer Deleted',

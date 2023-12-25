@@ -11,9 +11,10 @@
                     <hr />
 
                     <Answer
-                        v-for="answer in answers"
+                        v-for="(answer, index) in answers"
                         :answer="answer"
                         :key="answer.id"
+                        @deleted="remove(index)"
                     >
                         <template #author>
                             <UserInfo
@@ -65,4 +66,9 @@ const fetch = (endpoint) => {
 const title = computed(
     () => count.value + ' ' + (count.value > 1 ? 'Answers' : 'Answer')
 )
+
+const remove = (index) => {
+    answers.value.splice(index, 1)
+    count.value--
+}
 </script>
