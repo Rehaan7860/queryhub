@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Gate;
 class AnswersController extends Controller
 {
 
-    public function index() {
-        $answers = Answer::all();
+    public function __construct() {
+        $this->middleware('auth')->except('index');
+    }
 
-        return response()->json($answers);
+    public function index(Question $question) {
+        return $question->answers()->with('user')->simplePaginate(3);
     }
 
     /**

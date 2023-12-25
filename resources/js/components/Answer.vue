@@ -49,7 +49,7 @@
             <transition name="fadedown">
                 <div class="row">
                     <div class="col-md-auto">
-                        <slot name="vote-controls"></slot>
+                        <vote :model="answer" :name="'answer'"></vote>
                     </div>
                     <div class="col-md-11 mt-2">
                         <div>{{ state.answer.body }}</div>
@@ -62,7 +62,7 @@
                 <div class="col-md">
                     <div class="d-flex align-items-center gap-2 mt-5">
                         <a
-                            v-if="authEdit"
+                            v-if="authorize('modify', answer)"
                             @click.prevent="edit"
                             class="border-0 bg-transparent"
                         >
@@ -70,7 +70,7 @@
                         </a>
 
                         <button
-                            v-if="authDelete"
+                            v-if="authorize('modify', answer)"
                             @click="toggleModal"
                             class="border-0 bg-transparent"
                         >
@@ -142,6 +142,16 @@ const endpoint = computed(() => {
         state.answer && state.answer.question_id ? state.answer.question_id : ''
     }/answers/${state.answer && state.answer.id ? state.answer.id : ''}`
 })
+
+const authorize = (policy, model) => {
+    if (!window.Auth.signedIn) return false
+
+    if (typeof policy === 'string' && typeof model === 'object') {
+        const user = window.Auth.user
+
+        return user.id === answer.value.user_id
+    }
+}
 
 const fetchAnswers = async () => {
     try {

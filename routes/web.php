@@ -29,7 +29,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Answers Routes
-Route::get('/answers', [AnswersController::class, 'index']);
+Route::resource('questions.answer', AnswersController::class)->except('create', 'show');
+//Route::get('/answers', [AnswersController::class, 'index']);
 Route::post('/questions/{question}/answers', [AnswersController::class, 'store'])->name('answers.store');
 Route::get('/questions/{question}/answers/{answer}/edit', [AnswersController::class, 'edit'])->name('answers.edit');
 Route::delete('/questions/{question}/answers/{answer}', [AnswersController::class, 'destroy'])->name('answers.destroy');
