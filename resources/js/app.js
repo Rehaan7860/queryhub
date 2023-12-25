@@ -13,6 +13,7 @@ import Favorite from './components/Favorite.vue'
 import Accept from './components/Accept.vue'
 import Vote from './components/Vote.vue'
 import Answers from './components/Answers.vue'
+import mitt from 'mitt'
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -26,6 +27,7 @@ app.component('vote', Vote)
 app.component('answers', Answers)
 app.component('answer', Answer)
 
+const eventBus = mitt()
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -43,5 +45,5 @@ app.component('answer', Answer)
  * an "id" attribute of "app". This element is included with the "auth"
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
-
+app.provide('eventBus', eventBus)
 app.mount('#app')

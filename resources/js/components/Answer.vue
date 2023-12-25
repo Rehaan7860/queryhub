@@ -191,7 +191,6 @@ const update = async () => {
     }
 }
 
-// Come back to this to fix reactivity issue on deletion!
 const destroy = async () => {
     await axios
         .delete(endpoint.value)

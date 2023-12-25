@@ -1,46 +1,50 @@
 <template>
-    <div class="row justify-content-center mt-4" v-cloak v-if="count">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-title">
-                        <h2>
-                            {{ title }}
-                        </h2>
-                    </div>
-                    <hr />
+    <div>
+        <div class="row justify-content-center mt-4" v-cloak v-if="count">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h2>
+                                {{ title }}
+                            </h2>
+                        </div>
+                        <hr />
 
-                    <Answer
-                        v-for="(answer, index) in answers"
-                        :answer="answer"
-                        :key="answer.id"
-                        @deleted="remove(index)"
-                    >
-                        <template #author>
-                            <UserInfo
-                                :model="answer"
-                                label="Answered"
-                            ></UserInfo>
-                        </template>
-                    </Answer>
-
-                    <div class="text-center mt-3" v-if="nextUrl">
-                        <button
-                            @click="fetch(nextUrl)"
-                            class="border-0 bg-transparent text-primary"
+                        <Answer
+                            v-for="(answer, index) in answers"
+                            :answer="answer"
+                            :key="answer.id"
+                            @deleted="remove(index)"
                         >
-                            Show more...
-                        </button>
+                            <template #author>
+                                <UserInfo
+                                    :model="answer"
+                                    label="Answered"
+                                ></UserInfo>
+                            </template>
+                        </Answer>
+
+                        <div class="text-center mt-3" v-if="nextUrl">
+                            <button
+                                @click="fetch(nextUrl)"
+                                class="border-0 bg-transparent text-primary"
+                            >
+                                Show more...
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <NewAnswer @created="add" :question-id="question.id" />
     </div>
 </template>
 
 <script setup>
 import Answer from './Answer.vue'
 import UserInfo from './UserInfo.vue'
+import NewAnswer from './NewAnswer.vue'
 import { computed, onMounted, ref, toRefs } from 'vue'
 
 const props = defineProps(['question'])
@@ -70,5 +74,10 @@ const title = computed(
 const remove = (index) => {
     answers.value.splice(index, 1)
     count.value--
+}
+
+const add = (answer) => {
+    answers.value.push(answer)
+    count.value++
 }
 </script>

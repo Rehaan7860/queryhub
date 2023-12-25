@@ -19,16 +19,33 @@
 </template>
 
 <script setup>
-import { computed, defineProps, onMounted, ref, toRefs } from 'vue'
+import {
+    computed,
+    defineProps,
+    inject,
+    onMounted,
+    ref,
+    toRefs,
+    watchEffect
+} from 'vue'
 import { createToast } from 'mosha-vue-toastify'
 import policies from '../composables/policies.js'
 
 const props = defineProps(['answer'])
 
+const emit = defineEmits(['accepted'])
+const eventBus = inject('eventBus')
+
 const { answer } = toRefs(props)
 
 const isBest = ref(answer.value.is_best)
 const id = ref(answer.value.id)
+
+// watchEffect(() => {
+//     eventBus('accepted', (id) => {
+//         isBest.value = id === id.value
+//     })
+// })
 
 const canAccept = computed(() => {
     return authorize('accept', answer.value)
@@ -64,6 +81,8 @@ const create = async () => {
                 }
             )
             isBest.value = true
+
+            eventBus.emit('accepted', id.value)
         })
         .catch((err) => {
             console.log(err)

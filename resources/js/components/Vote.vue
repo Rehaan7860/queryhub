@@ -36,7 +36,7 @@ const props = defineProps(['name', 'model'])
 
 const { name, model } = toRefs(props)
 
-const count = ref(model.value.votes_count)
+const count = ref(model.value.votes_count || 0)
 
 const id = ref(model.value.id)
 
