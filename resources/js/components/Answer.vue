@@ -213,10 +213,10 @@ const destroy = async () => {
             createToast(
                 {
                     title: 'Error',
-                    description: 'The answer cannot be deleted.'
+                    description: err.data.message
                 },
                 {
-                    type: 'success',
+                    type: 'danger',
                     timeout: 5000,
                     position: 'bottom-center'
                 }

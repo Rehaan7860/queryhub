@@ -50,6 +50,8 @@ class QuestionsController extends Controller
     {
         $question->increment('views');
 
+        $question = $question->load('user');
+
         return view('questions.show', compact('question'));
     }
 
@@ -75,6 +77,13 @@ class QuestionsController extends Controller
 
         $question->update($request->only('title', 'body'));
 
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Your question has been successfully updated.',
+                'body' => $question->body,
+            ]);
+        }
+
         return redirect('/questions')->with('success', 'Your question has been successfully updated.');
     }
 
@@ -88,6 +97,12 @@ class QuestionsController extends Controller
         }
 
         $question->delete();
+
+        if(request()->expectsJson()) {
+            return response()->json([
+                'message' =>  "Your question has been deleted."
+            ]);
+        }
 
         return redirect('/questions')->with('success', "Your question has been deleted.");
     }

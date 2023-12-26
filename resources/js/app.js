@@ -14,6 +14,8 @@ import Accept from './components/Accept.vue'
 import Vote from './components/Vote.vue'
 import Answers from './components/Answers.vue'
 import mitt from 'mitt'
+import Question from './components/Question.vue'
+import QuestionPage from './pages/QuestionPage.vue'
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -24,8 +26,7 @@ const app = createApp({})
 
 app.component('user-info', UserInfo)
 app.component('vote', Vote)
-app.component('answers', Answers)
-app.component('answer', Answer)
+app.component('question-page', QuestionPage)
 
 const eventBus = mitt()
 /**
